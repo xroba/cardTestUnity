@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
     public int nbOfPlayers; 
     public bool isMyTurn;
 
+    public bool deckHasCard { get { return cardList.Count >0; }}
+
 	// Use this for initialization
 	void Awake () {
         ArrCardSprite = Resources.LoadAll<Sprite>("Sprites");
@@ -30,16 +32,16 @@ public class GameManager : MonoBehaviour {
 
     public int PullCard(){
 
-        int card = cardList[0];
-        cardList.RemoveAt(0);
+            int card = cardList[0];
+            cardList.RemoveAt(0);
 
-       // Debug.Log(card);
+            // Debug.Log(card);
 
-       GameObject CartToDelete = GameObject.Find("card_" + card);
-       Destroy(CartToDelete);
+            GameObject CartToDelete = GameObject.Find("card_" + card);
+            Destroy(CartToDelete);
 
-        return card;
-
+            return card;
+         
     }
 
     //private void GiveSixCardToBothPlayer()
@@ -124,6 +126,9 @@ public class GameManager : MonoBehaviour {
 
     void Update ()
     {
+
+        
+
         if (isMyTurn)
         {
 

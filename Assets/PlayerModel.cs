@@ -16,14 +16,20 @@ public class PlayerModel : MonoBehaviour {
     bool onGetCard;
     Vector3 LastCardPosition;
 
- 
+
+    void Awake()
+    {
+        LastCardPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Debug.Log("lastcardPosition" + LastCardPosition);
+    }
+
 	// Use this for initialization
 	void Start () {
         ArrCardSprite = scriptGameManager.ArrCardSprite;
         GetStartCards();
         //showCards();
         onGetCard = false;
-        LastCardPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        
 	}
 
 
@@ -52,19 +58,18 @@ public class PlayerModel : MonoBehaviour {
 
     public void GetCard()
     {
+
+        if (!scriptGameManager.deckHasCard)
+            return;
+
         int mCard = scriptGameManager.PullCard();
         handList.Add(mCard);
-
-        Debug.Log("t" + transform.position.x);
-        Debug.Log("l" +LastCardPosition.x);
-
+ 
         offset = LastCardPosition.x + marginCard ;
 
         GameObject instanciateCard = Instantiate(cardPrefab, new Vector3(offset, transform.position.y, 0f), Quaternion.identity) as GameObject;
         srCard = instanciateCard.GetComponent<SpriteRenderer>();
         srCard.sprite = ArrCardSprite[mCard];
-
-       
 
         instanciateCard.transform.parent = this.transform;
 
