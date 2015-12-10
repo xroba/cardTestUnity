@@ -8,6 +8,7 @@ public class playerView : MonoBehaviour {
     public  GameManager scriptgamemanager;
     List<int> playerhand;
     RaycastHit2D mousehit;
+	bool scalingCard;
    
 
 
@@ -38,9 +39,38 @@ public class playerView : MonoBehaviour {
 
        if (mousehit.collider != null)
        {
-           Debug.Log(mousehit.collider.gameObject.tag);
-           Debug.Log(mousehit.collider.gameObject.name);
+			if(mousehit.collider.gameObject.tag == "Card"){
+
+				GameObject oCard = mousehit.collider.gameObject;
+				string nameCard = oCard.name;
+
+
+				scaleCard();
+			} else {
+				scalingCard = false;
+				DescaleCard();
+			}
+
+           //Debug.Log(mousehit.collider.gameObject.tag);
+           //Debug.Log(mousehit.collider.gameObject.name);
+
        }
 	
+	}
+
+	void scaleCard ()
+	{
+		if (!scalingCard) {
+			scalingCard = true;
+			mousehit.collider.gameObject.transform.localScale = new Vector3 (
+			mousehit.collider.gameObject.transform.localScale.x + 1,
+			mousehit.collider.gameObject.transform.localScale.y + 1,
+			mousehit.collider.gameObject.transform.localScale.z);
+		}
+	}
+
+	void DescaleCard ()
+	{
+		throw new System.NotImplementedException ();
 	}
 }

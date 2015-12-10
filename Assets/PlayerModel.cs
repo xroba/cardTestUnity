@@ -72,6 +72,7 @@ public class PlayerModel : MonoBehaviour {
         srCard.sprite = ArrCardSprite[mCard];
 
         instanciateCard.transform.parent = this.transform;
+		instanciateCard.name = "card_" + mCard;
 
         LastCardPosition = instanciateCard.transform.position;
     }
