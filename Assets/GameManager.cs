@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public int round;
     public int nbOfPlayers; 
     public bool isMyTurn;
+    public GameObject MainDeck;
 
     public bool deckHasCard { get { return cardList.Count >0; }}
 
@@ -87,6 +88,9 @@ public class GameManager : MonoBehaviour {
         {
             GameObject myCard = Instantiate(Card, new Vector3(j, 0, 0), Quaternion.identity) as GameObject;
             myCard.name = "card_" + cardList[i];
+
+           myCard.transform.SetParent(MainDeck.transform);
+           
             //srCard = myCard.GetComponent<SpriteRenderer>();
             //srCard.sprite = ArrCardSprite[cardList[i]];
 

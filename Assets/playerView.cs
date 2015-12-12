@@ -48,35 +48,26 @@ public class playerView : MonoBehaviour {
 
                if (cardCurrentlyScale && cardCurrentlyScale.name != oCard.name)
                {
-                   DescaleCard(oCard);
-                   scaleCard(oCard);
+                   DescaleCard(cardCurrentlyScale);
+                   ScaleCard(oCard);
                }
                else
                {
-                   scaleCard(oCard);
+                   ScaleCard(oCard);
                }
-
-
-                
-
-			} else {
-				//scalingCard = false;
-				//DescaleCard();
-			}
-
-           //Debug.Log(mousehit.collider.gameObject.tag);
-           //Debug.Log(mousehit.collider.gameObject.name);
-
+			} 
        }
 	
 	}
 
-	void scaleCard (GameObject oCard)
+	void ScaleCard (GameObject oCard)
 	{
 
 
         CardScript cardscript = oCard.GetComponent<CardScript>();
+	    SpriteRenderer srCard = oCard.GetComponent<SpriteRenderer>();
 
+	    srCard.sortingOrder = -100;
 
         if (!cardscript.isScale)
         {

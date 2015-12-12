@@ -4,6 +4,8 @@ using System.Collections;
 public class CardScript : MonoBehaviour {
 
     public int valueIndex;
-    public bool isScale;
+    public bool isScale { get; set; }
+
+    
 
 }
