@@ -8,7 +8,8 @@ public class playerView : MonoBehaviour {
     public  GameManager scriptgamemanager;
     List<int> playerhand;
     RaycastHit2D mousehit;
-	bool scalingCard;
+    public GameObject cardCurrentlyScale;
+	//bool scalingCard;
    
 
 
@@ -39,16 +40,28 @@ public class playerView : MonoBehaviour {
 
        if (mousehit.collider != null)
        {
-			if(mousehit.collider.gameObject.tag == "Card"){
+           GameObject oCard = mousehit.collider.gameObject;
 
-				GameObject oCard = mousehit.collider.gameObject;
-				string nameCard = oCard.name;
+           if (oCard.tag == "Card")
+           {
+				//string nameCard = oCard.name;
+
+               if (cardCurrentlyScale && cardCurrentlyScale.name != oCard.name)
+               {
+                   DescaleCard(oCard);
+                   scaleCard(oCard);
+               }
+               else
+               {
+                   scaleCard(oCard);
+               }
 
 
-				scaleCard();
+                
+
 			} else {
-				scalingCard = false;
-				DescaleCard();
+				//scalingCard = false;
+				//DescaleCard();
 			}
 
            //Debug.Log(mousehit.collider.gameObject.tag);
@@ -58,19 +71,39 @@ public class playerView : MonoBehaviour {
 	
 	}
 
-	void scaleCard ()
+	void scaleCard (GameObject oCard)
 	{
-		if (!scalingCard) {
-			scalingCard = true;
-			mousehit.collider.gameObject.transform.localScale = new Vector3 (
-			mousehit.collider.gameObject.transform.localScale.x + 1,
-			mousehit.collider.gameObject.transform.localScale.y + 1,
-			mousehit.collider.gameObject.transform.localScale.z);
+
+
+        CardScript cardscript = oCard.GetComponent<CardScript>();
+
+
+        if (!cardscript.isScale)
+        {
+            cardscript.isScale = true;
+            this.cardCurrentlyScale = oCard;
+
+            oCard.transform.localScale = new Vector3 (
+            oCard.transform.localScale.x + 1,
+            oCard.transform.localScale.y + 1,
+            oCard.transform.localScale.z);
 		}
 	}
 
-	void DescaleCard ()
+    void DescaleCard(GameObject oCard)
 	{
-		throw new System.NotImplementedException ();
+        CardScript cardscript = oCard.GetComponent<CardScript>();
+        if (cardscript.isScale)
+        {
+            cardscript.isScale = false;
+            this.cardCurrentlyScale = null;
+
+            oCard.transform.localScale = new Vector3(
+           oCard.transform.localScale.x - 1,
+           oCard.transform.localScale.y - 1,
+           oCard.transform.localScale.z);
+
+        }
+		
 	}
 }
