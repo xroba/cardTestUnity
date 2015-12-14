@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public int nbOfPlayers; 
     public bool isMyTurn;
     public GameObject MainDeck;
+   
 
     public bool deckHasCard { get { return cardList.Count >0; }}
 
@@ -86,7 +87,7 @@ public class GameManager : MonoBehaviour {
         float j = -5f;
         foreach (int mCard in cardList)
         {
-            GameObject myCard = Instantiate(Card, new Vector3(j, 0, 0), Quaternion.identity) as GameObject;
+            GameObject myCard = Instantiate(Card, new Vector3(j, 0, i), Quaternion.identity) as GameObject;
             myCard.name = "card_" + cardList[i];
 
            myCard.transform.SetParent(MainDeck.transform);

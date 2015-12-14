@@ -9,18 +9,13 @@ public class playerView : MonoBehaviour {
     List<int> playerhand;
     RaycastHit2D mousehit;
     public GameObject cardCurrentlyScale;
-	//bool scalingCard;
+    private Transform[] transforms;
    
-
-
 	// Use this for initialization
 	void Start () {
         playermodel = GetComponent<PlayerModel>();
  
 	}
-
-   
-
 
     public void btnGetCard()
     {
@@ -32,42 +27,43 @@ public class playerView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+            //onMouseShowCard
+            Vector2 mouseray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousehit = Physics2D.Raycast(mouseray, Vector2.zero);
+            if (mousehit.collider != null)
+            {
 
-       Vector2 mouseray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                GameObject oCard = mousehit.collider.gameObject;
 
-       //Debug.Log(mouseray);
-       mousehit = Physics2D.Raycast(mouseray, Vector2.zero);
+                    if (cardCurrentlyScale && cardCurrentlyScale.name != oCard.name)
+                    {
+                            DescaleCard(cardCurrentlyScale);
+                            ScaleCard(oCard);
+                    }
+                    else
+                    {
+                        ScaleCard(oCard);
+                    }
 
-       if (mousehit.collider != null)
-       {
-           GameObject oCard = mousehit.collider.gameObject;
+                    //click on the card
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("click on " + oCard.name);
+                }
 
-           if (oCard.tag == "Card")
-           {
-				//string nameCard = oCard.name;
+             }
 
-               if (cardCurrentlyScale && cardCurrentlyScale.name != oCard.name)
-               {
-                   DescaleCard(cardCurrentlyScale);
-                   ScaleCard(oCard);
-               }
-               else
-               {
-                   ScaleCard(oCard);
-               }
-			} 
-       }
-	
-	}
+            
+
+            }
+
 
 	void ScaleCard (GameObject oCard)
 	{
-
-
         CardScript cardscript = oCard.GetComponent<CardScript>();
 	    SpriteRenderer srCard = oCard.GetComponent<SpriteRenderer>();
 
-	    srCard.sortingOrder = -100;
+	    srCard.sortingOrder = -1;
 
         if (!cardscript.isScale)
         {
@@ -79,6 +75,8 @@ public class playerView : MonoBehaviour {
             oCard.transform.localScale.y + 1,
             oCard.transform.localScale.z);
 		}
+
+
 	}
 
     void DescaleCard(GameObject oCard)
@@ -88,6 +86,10 @@ public class playerView : MonoBehaviour {
         {
             cardscript.isScale = false;
             this.cardCurrentlyScale = null;
+
+            SpriteRenderer srCard = oCard.GetComponent<SpriteRenderer>();
+
+            srCard.sortingOrder = 0;
 
             oCard.transform.localScale = new Vector3(
            oCard.transform.localScale.x - 1,

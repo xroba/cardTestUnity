@@ -15,19 +15,21 @@ public class PlayerModel : MonoBehaviour {
     SpriteRenderer srCard;
     bool onGetCard;
     Vector3 LastCardPosition;
+    public int score;
+    public bool hasPlayed;
 
 
     void Awake()
     {
         LastCardPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Debug.Log("lastcardPosition" + LastCardPosition);
+        //Debug.Log("lastcardPosition" + LastCardPosition);
     }
 
 	// Use this for initialization
 	void Start () {
         ArrCardSprite = scriptGameManager.ArrCardSprite;
         GetStartCards();
-        //showCards();
+	    score = 0;
         onGetCard = false;
         
 	}
@@ -63,11 +65,13 @@ public class PlayerModel : MonoBehaviour {
             return;
 
         int mCard = scriptGameManager.PullCard();
+
+        var cartIndex = handList.Count;
         handList.Add(mCard);
  
         offset = LastCardPosition.x + marginCard ;
 
-        GameObject instanciateCard = Instantiate(cardPrefab, new Vector3(offset, transform.position.y, 0f), Quaternion.identity) as GameObject;
+        GameObject instanciateCard = Instantiate(cardPrefab, new Vector3(offset, transform.position.y, cartIndex), Quaternion.identity) as GameObject;
         srCard = instanciateCard.GetComponent<SpriteRenderer>();
         srCard.sprite = ArrCardSprite[mCard];
 
