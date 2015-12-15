@@ -35,21 +35,6 @@ public class PlayerModel : MonoBehaviour {
 	}
 
 
-    //private void showCards()
-    //{
-    //    int i = 0;
-    //    foreach (int card in handList)
-    //    {
-    //        float offSet = transform.position.x + marginCard + i;
-    //        GameObject mCard = (GameObject)Instantiate(cardPrefab, new Vector3(offSet, transform.position.y, 0f), Quaternion.identity);
-    //        srCard = mCard.GetComponent<SpriteRenderer>();
-    //        srCard.sprite = ArrCardSprite[handList[i]];
-
-    //        mCard.transform.parent = this.transform;
-    //        i++;
-    //    }
-    //}
-
     void GetStartCards()
     {
         for (int i = 0; i < numberOfstartCard; i++)
@@ -71,12 +56,19 @@ public class PlayerModel : MonoBehaviour {
  
         offset = LastCardPosition.x + marginCard ;
 
+        //instanciate the prefab
         GameObject instanciateCard = Instantiate(cardPrefab, new Vector3(offset, transform.position.y, cartIndex), Quaternion.identity) as GameObject;
         srCard = instanciateCard.GetComponent<SpriteRenderer>();
         srCard.sprite = ArrCardSprite[mCard];
 
+        //setup Card Player Hand
+        CardScript cardScrip = instanciateCard.GetComponent<CardScript>();
+        cardScrip.playerHand = scriptGameManager.PlayerTurn;
+
+        //Position + name
         instanciateCard.transform.parent = this.transform;
 		instanciateCard.name = "card_" + mCard;
+        
 
         LastCardPosition = instanciateCard.transform.position;
     }

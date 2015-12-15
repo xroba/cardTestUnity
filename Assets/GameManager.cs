@@ -2,9 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+public enum PlayerTurn
+{
+    PLAYER1,
+    PLAYER2,
+    BOT
+}
+
 public class GameManager : MonoBehaviour {
 
     public GameObject Card;
+    public PlayerTurn PlayerTurn;
     public Sprite[] ArrCardSprite;
     SpriteRenderer srCard;
     List<int> cardList = new List<int>();
@@ -31,6 +40,11 @@ public class GameManager : MonoBehaviour {
 
         ShowCards();
 	}
+
+    void Start()
+    {
+        PlayerTurn = PlayerTurn.PLAYER1;
+    }
 
     public int PullCard(){
 
@@ -134,9 +148,20 @@ public class GameManager : MonoBehaviour {
 
         
 
-        if (isMyTurn)
-        {
-
-        }
+       
     }
+
+    public void NextTurn()
+    {
+        if (PlayerTurn.Equals(PlayerTurn.PLAYER1))
+        {
+            PlayerTurn = PlayerTurn.PLAYER2;
+        }
+        else
+        {
+            PlayerTurn = PlayerTurn.PLAYER1;
+        }
+
+    }
+
 }

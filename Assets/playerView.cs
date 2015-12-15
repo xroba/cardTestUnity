@@ -21,7 +21,8 @@ public class playerView : MonoBehaviour {
     {
         playermodel.GetCard();
 
-        scriptgamemanager.isMyTurn = false;
+        //scriptgamemanager.isMyTurn = false;
+        scriptgamemanager.NextTurn();
 
     }
 	
@@ -32,6 +33,8 @@ public class playerView : MonoBehaviour {
             mousehit = Physics2D.Raycast(mouseray, Vector2.zero);
             if (mousehit.collider != null)
             {
+
+                Debug.Log(transform.gameObject.name);
 
                 GameObject oCard = mousehit.collider.gameObject;
 
@@ -49,6 +52,19 @@ public class playerView : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0))
                 {
                     Debug.Log("click on " + oCard.name);
+
+                    //find the board of this player
+                   // Transform board = transform.FindChild("BoardPlayer");
+                    Transform board = transform.GetChild(0);
+                    Vector3 boardPosition = board.position;
+
+                       
+                        oCard.transform.position = boardPosition;
+                        oCard.transform.SetParent(board);
+
+                   
+
+
                 }
 
              }

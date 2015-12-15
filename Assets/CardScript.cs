@@ -5,7 +5,8 @@ public class CardScript : MonoBehaviour {
 
     public int valueIndex;
     public bool isScale { get; set; }
+    public PlayerTurn playerHand;
 
-    
+
 
 }
