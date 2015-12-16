@@ -54,31 +54,38 @@ public class playerView : MonoBehaviour {
                     //click on the card
                 if (Input.GetMouseButtonDown(0))
                 {
+			
                     Debug.Log("click on " + oCard.name);
-
-                    //getParrent
-                    Transform Player = oCard.transform.parent;
-                    //Debug.Log(Player.name);
-
-                    //find the board of this player
-                    Transform board = Player.FindChild("BoardPlayer");
-                    Vector3 boardPosition = Player.position;
-   
-                    oCard.transform.position = boardPosition;
-                    oCard.transform.SetParent(board);
-
-                    playermodel.PlayCard(oCard);
-                   
-
-
+                    
+				if(oCard.GetComponent<CardScript>().onPlay){
+					//RemoveCard
+				} else {
+					PlayCard(oCard);
+				}
+					
+            
                 }
 
-             }
-
-            
+             }     
 
             }
 
+	void PlayCard(GameObject oCard){
+
+		//getParrent
+		Transform Player = oCard.transform.parent;
+		//Debug.Log(Player.name);
+
+		int playerBoardCardCount = Player.childCount;
+		//find the board of this player
+		Transform board = Player.FindChild("BoardPlayer");
+		Vector3 boardPosition = board.position;
+		
+		oCard.transform.position = new Vector3( boardPosition.x + playerBoardCardCount, boardPosition.y, boardPosition.z);
+		oCard.transform.SetParent(board);
+
+		playermodel.PlayCard(oCard);
+	}
 
 	void ScaleCard (GameObject oCard)
 	{
