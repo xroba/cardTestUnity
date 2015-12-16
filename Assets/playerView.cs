@@ -34,14 +34,17 @@ public class playerView : MonoBehaviour {
             if (mousehit.collider != null)
             {
 
-                Debug.Log(transform.gameObject.name);
+               // Debug.Log(this.transform.name);
 
                 GameObject oCard = mousehit.collider.gameObject;
+
+                
 
                     if (cardCurrentlyScale && cardCurrentlyScale.name != oCard.name)
                     {
                             DescaleCard(cardCurrentlyScale);
                             ScaleCard(oCard);
+
                     }
                     else
                     {
@@ -53,15 +56,18 @@ public class playerView : MonoBehaviour {
                 {
                     Debug.Log("click on " + oCard.name);
 
+                    //getParrent
+                    Transform Player = oCard.transform.parent;
+                    //Debug.Log(Player.name);
+
                     //find the board of this player
-                   // Transform board = transform.FindChild("BoardPlayer");
-                    Transform board = transform.GetChild(0);
-                    Vector3 boardPosition = board.position;
+                    Transform board = Player.FindChild("BoardPlayer");
+                    Vector3 boardPosition = Player.position;
+   
+                    oCard.transform.position = boardPosition;
+                    oCard.transform.SetParent(board);
 
-                       
-                        oCard.transform.position = boardPosition;
-                        oCard.transform.SetParent(board);
-
+                    playermodel.PlayCard(oCard);
                    
 
 

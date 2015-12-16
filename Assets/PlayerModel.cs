@@ -78,6 +78,15 @@ public class PlayerModel : MonoBehaviour {
     //    onGetCard = true;
     //}
 
+    public void PlayCard(GameObject oCard)
+    {
+        CardScript cardscript = oCard.GetComponent<CardScript>();
+        cardscript.onPlay = true;
+        cardscript.playerHand = scriptGameManager.PlayerTurn;
+
+        scriptGameManager.NextTurn();
+    }
+
     void Update()
     {
         if (scriptGameManager.isMyTurn)
