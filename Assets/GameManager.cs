@@ -15,22 +15,22 @@ public class GameManager : MonoBehaviour {
     public GameObject Card;
     public PlayerTurn PlayerTurn;
     public Sprite[] ArrCardSprite;
-    SpriteRenderer srCard;
-    List<int> cardList = new List<int>();
-    public int round;
-    public int nbOfPlayers; 
-    public bool isMyTurn;
+    SpriteRenderer _srCard;
+    readonly List<int> _cardList = new List<int>();
+    public int Round;
+    public int NbOfPlayers; 
+    public bool IsMyTurn;
     public GameObject MainDeck;
    
 
-    public bool deckHasCard { get { return cardList.Count >0; }}
+    public bool deckHasCard { get { return _cardList.Count >0; }}
 
 	// Use this for initialization
 	void Awake () {
         ArrCardSprite = Resources.LoadAll<Sprite>("Sprites");
-        round = 0;
-        isMyTurn = true;
-        nbOfPlayers = 2;
+        Round = 0;
+        IsMyTurn = true;
+        NbOfPlayers = 2;
 
         //create the deck
         CreateDeck();
@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour {
 
     public int PullCard(){
 
-            int card = cardList[0];
-            cardList.RemoveAt(0);
+            int card = _cardList[0];
+            _cardList.RemoveAt(0);
 
             // Debug.Log(card);
 
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour {
     {
         for (int i = 0; i < 51; i++)
         {
-            cardList.Add(i);   
+            _cardList.Add(i);   
         }
     }
 
@@ -99,10 +99,10 @@ public class GameManager : MonoBehaviour {
     {
         int i = 0;
         float j = -5f;
-        foreach (int mCard in cardList)
+        foreach (int mCard in _cardList)
         {
             GameObject myCard = Instantiate(Card, new Vector3(j, 0, i), Quaternion.identity) as GameObject;
-            myCard.name = "card_" + cardList[i];
+            myCard.name = "card_" + _cardList[i];
 
            myCard.transform.SetParent(MainDeck.transform);
            
@@ -119,14 +119,14 @@ public class GameManager : MonoBehaviour {
     {
         for (int i = 0; i < 51; i++)
         {
-            int cardToSWap1 = cardList[i];
+            int cardToSWap1 = _cardList[i];
 
             //launch the dice
             int cardswapper = Random.Range(0,51);
-            int cardToSwap2 = cardList[cardswapper];
+            int cardToSwap2 = _cardList[cardswapper];
 
-            cardList[i] = cardToSwap2;
-            cardList[cardswapper] = cardToSWap1;
+            _cardList[i] = cardToSwap2;
+            _cardList[cardswapper] = cardToSWap1;
             
         }
 

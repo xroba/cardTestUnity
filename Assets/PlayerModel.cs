@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 
 public class PlayerModel : MonoBehaviour {
 
@@ -17,11 +18,12 @@ public class PlayerModel : MonoBehaviour {
     Vector3 LastCardPosition;
     public int score;
     public bool hasPlayed;
-
+    private CardList oCard;
 
     void Awake()
     {
         LastCardPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        oCard = new CardList();
         //Debug.Log("lastcardPosition" + LastCardPosition);
     }
 
@@ -31,6 +33,7 @@ public class PlayerModel : MonoBehaviour {
         GetStartCards();
 	    score = 0;
         onGetCard = false;
+        
         
 	}
 
@@ -68,7 +71,10 @@ public class PlayerModel : MonoBehaviour {
         //Position + name
         instanciateCard.transform.parent = this.transform;
 		instanciateCard.name = "card_" + mCard;
-        
+
+        //retrieve data from Card Array by index mCard
+        cardScrip.Value =  oCard.GetValue(mCard);
+        cardScrip.Suit = oCard.GetSuit(mCard);
 
         LastCardPosition = instanciateCard.transform.position;
     }
@@ -89,7 +95,7 @@ public class PlayerModel : MonoBehaviour {
 
     void Update()
     {
-        if (scriptGameManager.isMyTurn)
+        if (scriptGameManager.IsMyTurn)
         {
            
 
@@ -98,8 +104,8 @@ public class PlayerModel : MonoBehaviour {
         {
             Debug.Log("player joue");
             GetCard();
-            scriptGameManager.round++;
-            scriptGameManager.isMyTurn = true;
+            scriptGameManager.Round++;
+            scriptGameManager.IsMyTurn = true;
 
         }
 

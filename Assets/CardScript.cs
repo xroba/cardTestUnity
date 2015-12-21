@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets;
 
 public class CardScript : MonoBehaviour {
 
@@ -7,7 +8,10 @@ public class CardScript : MonoBehaviour {
     public bool isScale { get; set; }
     public PlayerTurn playerHand;
     public bool onPlay;
-
-
+    public int Value;
+    public Suit Suit;
 
 }
+
+
+
