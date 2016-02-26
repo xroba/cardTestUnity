@@ -76,6 +76,7 @@ public class PlayerModel : MonoBehaviour {
         cardScrip.Value =  oCard.GetValue(mCard);
         cardScrip.Suit = oCard.GetSuit(mCard);
 
+        //instantiate the card on the right of the player involved
         LastCardPosition = instanciateCard.transform.position;
     }
 

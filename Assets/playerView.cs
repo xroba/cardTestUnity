@@ -21,6 +21,8 @@ public class playerView : MonoBehaviour {
     {
         playermodel.GetCard();
 
+        //find wich playersturn
+
         //scriptgamemanager.isMyTurn = false;
         scriptgamemanager.NextTurn();
 

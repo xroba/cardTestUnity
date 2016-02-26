@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 
 public enum PlayerTurn
@@ -161,6 +163,17 @@ public class GameManager : MonoBehaviour {
         {
             PlayerTurn = PlayerTurn.PLAYER1;
         }
+
+    }
+
+    public void GivePlayerturnCard()
+    {
+        //check player turn and take the gameObject
+        GameObject oPlayerTurn = GameObject.Find(PlayerTurn.ToString());
+        Debug.Log(oPlayerTurn.name);
+
+        NextTurn();
+        
 
     }
 
